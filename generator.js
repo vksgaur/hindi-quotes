@@ -2,12 +2,18 @@
 const instaCard = document.getElementById('insta-card');
 const quoteText = document.getElementById('preview-quote');
 const quoteAuthor = document.getElementById('preview-author');
+
 const randomQuoteBtn = document.getElementById('random-quote-btn');
+const toggleAuthorBtn = document.getElementById('toggle-author-btn');
 const downloadBtn = document.getElementById('download-btn');
-const colorBtns = document.querySelectorAll('.color-btn');
+
+const fontBtns = document.querySelectorAll('.font-btn');
+const textColorBtns = document.querySelectorAll('.text-color-btn');
+const themeBtns = document.querySelectorAll('.theme-btn');
 
 // State
 let currentQuote = null;
+let currentFont = 'modern';
 
 // Initialize
 function init() {
@@ -17,17 +23,58 @@ function init() {
         quoteText.textContent = "Error loading quotes.";
     }
 
-    // Event Listeners
-    randomQuoteBtn.addEventListener('click', showRandomQuote);
-    downloadBtn.addEventListener('click', downloadImage);
+    setupEventListeners();
+}
 
-    colorBtns.forEach(btn => {
+function setupEventListeners() {
+    // Quote Controls
+    randomQuoteBtn.addEventListener('click', showRandomQuote);
+
+    toggleAuthorBtn.addEventListener('click', () => {
+        if (quoteAuthor.style.display === 'none') {
+            quoteAuthor.style.display = 'block';
+        } else {
+            quoteAuthor.style.display = 'none';
+        }
+    });
+
+    // Font Selection
+    fontBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const style = btn.getAttribute('data-style');
-            const bg = btn.style.background;
-            applyStyle(style, bg);
+            // Remove active class from all
+            fontBtns.forEach(b => b.classList.remove('active'));
+            // Add to clicked
+            btn.classList.add('active');
+
+            // Apply Font
+            const fontStyle = btn.getAttribute('data-font');
+            applyFont(fontStyle);
         });
     });
+
+    // Text Color Selection
+    textColorBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const color = btn.getAttribute('data-color');
+            instaCard.style.color = color;
+
+            // Also update icon color
+            const icon = instaCard.querySelector('.quote-icon');
+            if (icon) icon.style.color = color;
+        });
+    });
+
+    // Theme Selection
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const bg = btn.style.background;
+            const theme = btn.getAttribute('data-theme');
+            applyTheme(bg, theme);
+        });
+    });
+
+    // Download
+    downloadBtn.addEventListener('click', downloadImage);
 }
 
 function showRandomQuote() {
@@ -43,15 +90,28 @@ function showRandomQuote() {
     }, 200);
 }
 
-function applyStyle(styleName, backgroundValue) {
+function applyFont(fontStyle) {
+    // Remove existing font classes
+    instaCard.classList.remove('font-modern', 'font-classic', 'font-artistic');
+    // Add new class
+    instaCard.classList.add(`font-${fontStyle}`);
+
+    currentFont = fontStyle;
+}
+
+function applyTheme(backgroundValue, themeName) {
     instaCard.style.background = backgroundValue;
 
-    // Reset specific text colors if needed
-    if (styleName === 'solid-dark') {
-        instaCard.style.color = '#fff';
-    } else if (styleName === 'glass') {
-        instaCard.style.backdropFilter = 'blur(10px)';
-        instaCard.style.webkitBackdropFilter = 'blur(10px)';
+    // Auto-adjust text color for legibility
+    // Simple heuristic: Pastel themes are light -> use Dark Text
+    // Dark themes -> use White Text
+
+    if (themeName.startsWith('pastel')) {
+        instaCard.style.color = '#1a1a1a';
+        instaCard.querySelector('.quote-icon').style.color = 'rgba(0,0,0,0.6)';
+    } else {
+        instaCard.style.color = '#ffffff';
+        instaCard.querySelector('.quote-icon').style.color = 'rgba(255,255,255,0.7)';
     }
 }
 
@@ -62,20 +122,18 @@ async function downloadImage() {
     downloadBtn.disabled = true;
 
     try {
-        // High quality scale
-        // We want 1080x1080 output. 
-        // The card is 500x500 on screen. 
-        // Scale = 1080 / 500 = 2.16
+        // High quality scale (1080x1080)
+        // Card is 500px -> Scale = 2.16
 
         const canvas = await html2canvas(instaCard, {
-            scale: 2.16, // Scale up for 1080p
-            useCORS: true, // For images if we add them later
-            backgroundColor: null // Transparent background handling
+            scale: 2.16,
+            useCORS: true,
+            backgroundColor: null
         });
 
         // Trigger download
         const link = document.createElement('a');
-        link.download = `hindi-quote-post-${Date.now()}.png`;
+        link.download = `hindi-quote-aesthetic-${Date.now()}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
 

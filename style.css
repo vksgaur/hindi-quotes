@@ -663,3 +663,93 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
 }
+
+/* Typography Styles */
+.font-modern .quote-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.font-classic .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+
+.font-artistic .quote-text {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+}
+
+/* Layout Adjustments for Fonts */
+.font-artistic .quote-text {
+    font-size: 2.5rem;
+    /* Handwritten needs to be slightly larger */
+}
+
+/* Toggle Group */
+.toggle-group {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn.small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Font Options */
+.font-options {
+    display: flex;
+    gap: 10px;
+}
+
+.font-btn {
+    flex: 1;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.font-btn.active,
+.font-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: white;
+}
+
+/* Text Color Options */
+.text-color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.text-color-btn:hover {
+    transform: scale(1.15);
+}
+
+/* Theme Options Grid */
+.theme-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.theme-btn {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.theme-btn:hover {
+    transform: scale(1.05);
+    border-color: white;
+}

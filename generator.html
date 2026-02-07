@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -43,26 +43,63 @@
             <!-- Controls Area -->
             <div class="controls-panel">
                 <div class="control-group">
-                    <h3>Quote</h3>
+                    <h3>Content</h3>
                     <button id="random-quote-btn" class="control-btn"><i class="fas fa-random"></i> Random
                         Quote</button>
-                    <!-- Future: Select from list -->
+                    <div class="toggle-group" style="margin-top: 10px;">
+                        <button id="toggle-author-btn" class="control-btn small">Show/Hide Author</button>
+                    </div>
                 </div>
 
                 <div class="control-group">
-                    <h3>Background Style</h3>
-                    <div class="color-options">
-                        <button class="color-btn" data-style="gradient-1"
-                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></button>
-                        <button class="color-btn" data-style="gradient-2"
-                            style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);"></button>
-                        <button class="color-btn" data-style="gradient-3"
-                            style="background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);"></button>
-                        <button class="color-btn" data-style="gradient-4"
-                            style="background: linear-gradient(to top, #30cfd0 0%, #330867 100%);"></button>
-                        <button class="color-btn" data-style="solid-dark" style="background: #1a1a2e;"></button>
-                        <button class="color-btn" data-style="glass"
-                            style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2);"></button>
+                    <h3>Typography</h3>
+                    <div class="font-options">
+                        <button class="font-btn active" data-font="modern">Modern</button>
+                        <button class="font-btn" data-font="classic"
+                            style="font-family: 'Playfair Display', serif;">Classic</button>
+                        <button class="font-btn" data-font="artistic"
+                            style="font-family: 'Dancing Script', cursive;">Artistic</button>
+                    </div>
+                    <div class="color-options" style="margin-top: 10px;">
+                        <button class="text-color-btn" data-color="#ffffff"
+                            style="background: #ffffff; border: 1px solid #ccc;"></button>
+                        <button class="text-color-btn" data-color="#000000"
+                            style="background: #000000; border: 1px solid #ccc;"></button>
+                        <button class="text-color-btn" data-color="#FFD700"
+                            style="background: #FFD700; border: 1px solid #ccc;"></button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Theme</h3>
+                    <div class="theme-options">
+                        <!-- Pastel Themes -->
+                        <button class="theme-btn" data-theme="pastel-pink"
+                            style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);"
+                            title="Minimal White"></button>
+                        <button class="theme-btn" data-theme="pastel-peach"
+                            style="background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);"
+                            title="Peach"></button>
+                        <button class="theme-btn" data-theme="pastel-mint"
+                            style="background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);"
+                            title="Mint"></button>
+                        <button class="theme-btn" data-theme="pastel-blue"
+                            style="background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);"
+                            title="Baby Blue"></button>
+                        <button class="theme-btn" data-theme="pastel-lavender"
+                            style="background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);"
+                            title="Lavender"></button>
+
+                        <!-- Dark/Vibrant Themes -->
+                        <button class="theme-btn" data-theme="deep-blue"
+                            style="background: linear-gradient(to right, #434343 0%, #000000 100%);"
+                            title="Dark Matte"></button>
+                        <button class="theme-btn" data-theme="sunset"
+                            style="background: linear-gradient(to right, #fa709a 0%, #fee140 100%);"
+                            title="Sunset"></button>
+                        <button class="theme-btn" data-theme="ocean"
+                            style="background: linear-gradient(to top, #30cfd0 0%, #330867 100%);"
+                            title="Ocean"></button>
                     </div>
                 </div>
 
