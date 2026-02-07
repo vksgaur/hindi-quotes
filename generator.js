@@ -116,25 +116,33 @@ function applyTheme(backgroundValue, themeName) {
 }
 
 async function downloadImage() {
-    // Show loading state
     const originalText = downloadBtn.innerHTML;
     downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
     downloadBtn.disabled = true;
 
     try {
-        // High quality scale (1080x1080)
-        // Card is 500px -> Scale = 2.16
+        // High quality export using html-to-image
+        // We render at 2x scale (1080px from 500px base ~ 2.16x)
 
-        const canvas = await html2canvas(instaCard, {
-            scale: 2.16,
-            useCORS: true,
-            backgroundColor: null
+        const dataUrl = await htmlToImage.toPng(instaCard, {
+            quality: 1.0,
+            pixelRatio: 2.16, // Scale up for 1080p
+            backgroundColor: null, // Preserve transparency if any, or usage of styles
+            style: {
+                // Ensure shadows and details are captured
+                boxShadow: 'none', // Optional: Remove outer shadow for cleaner card export? User might want the card style. Let's keep it if consistent with preview, but typically insta posts don't have CSS shadows *in* the image.
+                // Actually, let's keep the design as is (shadow included) if it looks good, or remove it if it looks "cut off". 
+                // Let's remove the card shadow for the export so it fits the square perfectly without clipping or margins.
+                boxShadow: 'none',
+                margin: '0',
+                borderRadius: '0' // Instagram posts are usually square, rounded corners are viewer side. Let's make it full square.
+            }
         });
 
         // Trigger download
         const link = document.createElement('a');
-        link.download = `hindi-quote-aesthetic-${Date.now()}.png`;
-        link.href = canvas.toDataURL('image/png');
+        link.download = `hindi-quote-post-${Date.now()}.png`;
+        link.href = dataUrl;
         link.click();
 
     } catch (err) {
