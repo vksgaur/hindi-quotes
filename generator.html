@@ -30,7 +30,12 @@
             <div class="preview-container">
                 <div id="insta-card" class="insta-card">
                     <div class="card-content">
-                        <i class="fas fa-quote-left quote-icon"></i>
+                        <!-- Inline SVG for reliable rendering -->
+                        <svg class="quote-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="40"
+                            height="40" fill="currentColor">
+                            <path
+                                d="M0 216C0 149.7 53.7 96 120 96h8c13.3 0 24 10.7 24 24v16c0 13.3-10.7 24-24 24h-8c-30.9 0-56 25.1-56 56v72h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V216zm256 0c0-66.3 53.7-120 120-120h8c13.3 0 24 10.7 24 24v16c0 13.3-10.7 24-24 24h-8c-30.9 0-56 25.1-56 56v72h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V216z" />
+                        </svg>
                         <p class="quote-text" id="preview-quote">उद्धरण यहाँ दिखाई देगा...</p>
                         <p class="quote-author" id="preview-author">- लेखक</p>
                     </div>
