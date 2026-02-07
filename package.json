@@ -1,0 +1,17 @@
+{
+  "name": "hindi-quotes",
+  "version": "1.0.0",
+  "description": "A beautiful collection of Hindi quotes",
+  "main": "app.js",
+  "scripts": {
+    "update-quotes": "node scripts/sync-quotes.js",
+    "deploy": "npm run update-quotes && git add . && git commit -m 'Update quotes' && git push"
+  },
+  "keywords": [
+    "hindi",
+    "quotes",
+    "inspiration"
+  ],
+  "author": "Vikas Gaur",
+  "license": "ISC"
+}
