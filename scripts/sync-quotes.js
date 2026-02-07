@@ -64,7 +64,6 @@ function parseCSV(csvText) {
         const line = validLines[i];
 
         // CSV Parser Logic
-        // Matches: "quoted value" OR unquoted_value
         const regex = /(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)?/g;
         const row = [];
         let match;
@@ -85,31 +84,33 @@ function parseCSV(csvText) {
         const cleanRow = row.filter(pt => pt !== undefined && pt !== '');
 
         // Updated Logic for New Structure: [Index, Quote, Writer]
-        // We expect at least 3 columns (or 2 if index is missing, but handling 3 is key)
+        // We expect at least 3 columns
 
         if (cleanRow.length >= 3) {
-            // Structure: Index, Quote, Writer
             const text = cleanRow[1];
             const writer = cleanRow[2];
 
-            // Skip Header
+            // Skip Header Row (English and Hindi)
             if (text.toLowerCase() === 'quote' && writer.toLowerCase() === 'writer') continue;
+            if (text === 'उद्धरण' && writer === 'लेखक') continue;
 
-            // Basic validation
             if (text && writer) {
                 result.push({ text, writer });
             }
-        } else if (cleanRow.length === 2 && isNaN(cleanRow[0])) {
-            // Fallback for old structure or if index is missing: Quote, Writer
-            // But only if first column is NOT a number (to distinguish from Index, Quote case where Writer is missing)
-            // Actually, safest is to stick to the requested structure.
-            // But if user reverts structure, this breaks.
-            // Let's rely on column 1 being Quote if 3 cols exist.
-
+        }
+        // Fallback or header check for very first row if structure varies
+        else if (cleanRow.length === 2) {
+            // Maybe header or old format?
             const text = cleanRow[0];
             const writer = cleanRow[1];
+
+            // Check if header
+            if (text === 'उद्धरण' && writer === 'लेखक') continue;
             if (text.toLowerCase() === 'quote' && writer.toLowerCase() === 'writer') continue;
-            result.push({ text, writer });
+
+            // Assume data if not index
+            // But if current sheet has index, this case shouldn't hit for data rows.
+            // We'll leave it but prioritize the 3-column check which is standard now.
         }
     }
 
