@@ -69,44 +69,46 @@ function parseCSV(csvText) {
         const row = [];
         let match;
 
-        // Reset lastIndex is important if reused, but here we create new regex each line (fine for small data)
         while ((match = regex.exec(line)) !== null) {
             let val = match[1] || '';
             // Remove quotes and unescape "" -> "
             if (val.startsWith('"') && val.endsWith('"')) {
                 val = val.slice(1, -1).replace(/""/g, '"');
             }
-            // Fix: regex matches empty string at end of line sometimes
             if (match[0] === ',' || match[0] === '') {
-                // Logic check: checking match[0] helps differentiate
+                // Logic check
             }
 
             row.push(val.trim());
         }
 
-        // The regex includes an empty match at the end of the string, pop it if it's truly empty and extra
-        // Actually, let's just use the logic from before which was cleaner for this specific data.
-        // Google Sheet Export is standard.
-        // Let's fallback to specific column indices if header detection is hard.
-        // We know structure: Quote, Writer.
-
-        // Let's simply use the extracted row.
-        // Clean up empty strings at the very end of row which might be artifacts
-        // But writers might be missing? No, we filter.
-
         const cleanRow = row.filter(pt => pt !== undefined && pt !== '');
 
-        // We assume column 0 is Quote, Column 1 is Writer.
-        // If the row has > 2 columns, we take 0 and 1.
+        // Updated Logic for New Structure: [Index, Quote, Writer]
+        // We expect at least 3 columns (or 2 if index is missing, but handling 3 is key)
 
-        if (cleanRow.length >= 2) {
+        if (cleanRow.length >= 3) {
+            // Structure: Index, Quote, Writer
+            const text = cleanRow[1];
+            const writer = cleanRow[2];
+
+            // Skip Header
+            if (text.toLowerCase() === 'quote' && writer.toLowerCase() === 'writer') continue;
+
+            // Basic validation
+            if (text && writer) {
+                result.push({ text, writer });
+            }
+        } else if (cleanRow.length === 2 && isNaN(cleanRow[0])) {
+            // Fallback for old structure or if index is missing: Quote, Writer
+            // But only if first column is NOT a number (to distinguish from Index, Quote case where Writer is missing)
+            // Actually, safest is to stick to the requested structure.
+            // But if user reverts structure, this breaks.
+            // Let's rely on column 1 being Quote if 3 cols exist.
+
             const text = cleanRow[0];
             const writer = cleanRow[1];
-
-            // Skip Header Row if it exists
             if (text.toLowerCase() === 'quote' && writer.toLowerCase() === 'writer') continue;
-            if (text.toLowerCase() === 'quotes' && writer.toLowerCase() === 'writer name') continue;
-
             result.push({ text, writer });
         }
     }
