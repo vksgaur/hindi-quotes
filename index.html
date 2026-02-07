@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हिंदी विचार | Hindi Quotes</title>
+    <meta name="description"
+        content="Beautiful Hindi quotes from legendary writers and poets. Get inspired with timeless wisdom.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="title">
+                <span class="hindi-title">हिंदी विचार</span>
+                <span class="english-subtitle">Hindi Quotes</span>
+            </h1>
+        </header>
+
+        <main>
+            <div class="quote-card" id="quoteCard">
+                <div class="quote-decoration top-left">"</div>
+                <div class="quote-decoration bottom-right">"</div>
+
+                <div class="quote-content">
+                    <p class="quote-text" id="quoteText">
+                        जीवन में सफलता का रहस्य यह है कि जब अवसर आए तो उसके लिए तैयार रहें।
+                    </p>
+                    <div class="writer-info">
+                        <div class="writer-line"></div>
+                        <p class="writer-name" id="writerName">— मुंशी प्रेमचंद</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="newQuoteBtn">
+                    <span class="btn-icon">✨</span>
+                    <span class="btn-text">नया विचार</span>
+                </button>
+                <button class="btn btn-secondary" id="copyBtn">
+                    <span class="btn-icon">📋</span>
+                    <span class="btn-text">कॉपी करें</span>
+                </button>
+                <button class="btn btn-secondary" id="shareBtn">
+                    <span class="btn-icon">📤</span>
+                    <span class="btn-text">शेयर करें</span>
+                </button>
+            </div>
+
+            <div class="toast" id="toast">
+                <span class="toast-icon">✓</span>
+                <span class="toast-message" id="toastMessage">कॉपी हो गया!</span>
+            </div>
+        </main>
+
+        <footer>
+            <p class="footer-text">💫 प्रेरणादायक विचारों का संग्रह</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
